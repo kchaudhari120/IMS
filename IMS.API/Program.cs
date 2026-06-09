@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 using IMS.Infrastructure.Services;
+using IMS.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped(
+    typeof(IRepository<>),
+    typeof(Repository<>));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 
 builder.Services.AddAuthentication(options =>
