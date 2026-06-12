@@ -32,6 +32,17 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Product>()
             .Property(x => x.Price)
             .HasPrecision(18, 2);
+
+
+        modelBuilder.Entity<Product>()
+        .HasOne(p => p.Category)
+        .WithMany()
+        .HasForeignKey(p => p.CategoryId);
+
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Supplier)
+            .WithMany()
+            .HasForeignKey(p => p.SupplierId);
     }
 
 }
